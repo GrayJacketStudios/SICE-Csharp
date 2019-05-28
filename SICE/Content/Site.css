@@ -85,7 +85,7 @@ input[type="select"] {
 
 /* The Close Button */
 .close {
-    color: rgba(0,0,0,0.2);
+    color: #FAF;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -139,6 +139,8 @@ input[type="select"] {
     bottom: 0;
     background-color: #ccc;
     -webkit-transition: .4s;
+    -moz-transition: .4s;
+    -o-transition: .4s;
     transition: .4s;
 }
 
@@ -151,6 +153,8 @@ input[type="select"] {
         bottom: 1px;
         background-color: white;
         -webkit-transition: .4s;
+        -moz-transition: .4s;
+        -o-transition: .4s;
         transition: .4s;
     }
 
@@ -164,6 +168,8 @@ input:focus + .slider {
 
 input:checked + .slider:before {
     -webkit-transform: translateX(16px);
+    -moz-transform: translateX(16px);
+    -o-transform: translateX(16px);
     -ms-transform: translateX(16px);
     transform: translateX(16px);
 }

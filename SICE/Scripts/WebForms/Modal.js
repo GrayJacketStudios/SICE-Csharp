@@ -1,20 +1,17 @@
 ﻿var modal;
 var span;
 var area = new Object;
-
+//Obtenemos el objeto modal luego de que se cargue la pagina (O no funcionara)
 window.onload = function () {
     modal = document.getElementById("modalForMap");
 }
 
-window.onclick = function (event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
+//Funcion que retorana string con el consumo para la fecha.
 function getConsumo(id, fecha) {
     return `${id}Kwh *<span>consumo desde las 14:30 en adelante</span>`;
 }
+
+//Funcion ajax que envia un HTTPDREQUEST a la API ubicada en www.scristi.ml/api/sice/... para cambiar el flujo
 function cambiaFlujo(id, flujo) {
     area.flujo = flujo;
     $.post(`http://www.scristi.ml/api/sice/changeFlujo.php?ID=${id}&flujo=${flujo}`);
@@ -24,6 +21,7 @@ function cambiaFlujo(id, flujo) {
     areaDiv.onclick = function () { showModal(area.id,area.nombre,flujo) };
 }
 
+//Funcion que nos muestra el texto correspondiente segun el area en el modal. se puede llamar para actualizar segun estado.
 function renderModal() {
     modal.children[0].children[1].innerHTML = "Area: " + area.nombre;
     modal.children[0].style.backgroundColor = (area.flujo == 1) ? "#fd5432" : "#00ff00";
@@ -41,6 +39,7 @@ function renderModal() {
 
 }
 
+//Llamamos a esta función cuando apretamos sobre el area para mostrar el modal, asignamos el objeto area.
 function showModal(id, nombre, flujo) {
     if (modal.style.display == "block") {
         modal.style.display ="none";
@@ -55,7 +54,7 @@ function showModal(id, nombre, flujo) {
     
     
 }
-
+//Funcion para ocultar el modal
 function hideModal() {
-    modal.style.display = (modal.style.display == "none") ? "block" : "none";
+    modal.style.display = "none";
 }

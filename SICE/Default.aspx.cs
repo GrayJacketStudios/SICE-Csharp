@@ -28,13 +28,16 @@ namespace SICE
 
             areas.ForEach(a =>
             {
-                MapaDiv.InnerHtml += "<div style='" +
+                MapaDiv.InnerHtml += "<div" +
+                "                   id='areaMap_"+a.area_ID+"'" +
+                "                    style='" +
                                     "position: absolute;" +
                                     "width: "+a.ad.size_x.ToString()+"px;" +
                                     "height: "+a.ad.size_y.ToString()+ "px;" +
                                     "left: "+a.ad.pos_x.ToString()+ "px;" +
                                     "top: "+a.ad.pos_y.ToString()+ "px;" +
-                                    "background-color: #fd5432;'><h4 align='center'>" + a.nombre+"</h4></div>";
+                                    "background-color: "+((a.flujo == 1)? "#fd5432" : "#00ff00" )+ ";'" +
+                                    "onClick='showModal("+a+")'><h4 align='center'>" + a.nombre+"</h4></div>";
             });
 
                 

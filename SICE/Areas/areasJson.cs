@@ -13,6 +13,13 @@ namespace SICE.Areas
         public int gpiod { get; set; }
         public int estado { get; set; }
         public areaDraw ad { get; set; }
+
+
+        public override string ToString()
+        {
+            return "\""+area_ID + "\",\"" + nombre + "\",\"" + flujo+ "\"";
+        }
+
     }
 
 }

@@ -78,6 +78,7 @@
                 </div>
             </div>
         </div>
+        <script src="Scripts/WebForms/Modal.js" ></script>
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>

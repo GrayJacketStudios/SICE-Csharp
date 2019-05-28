@@ -10,13 +10,10 @@
   </div>
   <div class="modal-body">
   </div>
-  <div class="modal-footer">
-    <h3>Modal Footer</h3>
-  </div>
 </div> 
 
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <center><h2>Mapa de areas</h2></center>
 
                 <p id="Ptest" runat="server"/>

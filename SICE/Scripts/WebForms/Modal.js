@@ -25,17 +25,17 @@ function cambiaFlujo(id, flujo) {
 
 function renderModal() {
     modal.children[0].children[1].innerHTML = "Area: " + area.nombre;
-    modal.children[1].innerHTML = `<p class='text-flujo'>Estado del flujo: ${((area.flujo == "1") ? "Cerrado" : "Abierto") }</p>`+
+    modal.children[1].innerHTML = `<p class='text-flujo'>Estado del flujo: ${((area.flujo == "1") ? "Cerrado" : "Abierto")} <div>   
+                                            
+                                                <label class="switch">
+                                                    <input type="checkbox" onchange="cambiaFlujo(${area.id},${parseInt(area.flujo - 1) * (-1)})" ${(area.flujo == "1") ? "checked" : ""}/>
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            
+                                        </div></p>`+
                                      `<p>Consumo energetico del día:<p>
                                        <div class="lista-consumo">${getConsumo(area.id, new Date())}</div>
-                                        <div>   
-                                            <span>
-                                                <label className="switch">
-                                                    <input type="checkbox" onchange="cambiaFlujo(${area.id},${parseInt(area.flujo-1)*(-1)})" ${(area.flujo == "1") ?"checked":""}/>
-                                                    <span className="slider round"></span>
-                                                </label>
-                                            </span>
-                                        </div>`;
+                                        `;
 
 }
 

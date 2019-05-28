@@ -2,35 +2,26 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-         <!-- Modal content -->
-<div class="modal-content" id="modalForMap">
-  <div class="modal-header">
-    <span id="close" class="close" onclick="hideModal();">&times;</span>
-    <h2>Area </h2>
-  </div>
-  <div class="modal-body">
-  </div>
-  <div class="modal-footer">
-    <h3>Modal Footer</h3>
-  </div>
-</div> 
-
     <div class="row">
-        <div class="col-md-10">
-            <center><h2>Mapa de areas</h2></center>
-
-                <p id="Ptest" runat="server"/>
-            
+        <div class="col-md-12">
+            <h2 style="text-align:center;">Mapa de areas</h2>
+            <p id="Ptest" runat="server"/>
             <div class="mapa" id="MapaDiv" runat="server">
-
             </div>
-
-
         </div>
-        
     </div>
 
-
+    <!-- Modal content 
+        * Aqui mostraremos todos los datos de interes de cada Area
+        -->
+    <div class="modal-content" id="modalForMap">
+        <div class="modal-header">
+            <span id="close" class="close" onclick="hideModal();">&times;</span>
+            <h2>Area </h2>
+        </div>
+        <div class="modal-body">
+        </div>
+    </div> 
 
 
 </asp:Content>

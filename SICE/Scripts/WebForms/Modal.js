@@ -6,9 +6,30 @@ window.onload = function () {
     modal = document.getElementById("modalForMap");
 }
 
+function getToday() {
+    let today = new Date();
+    let fecha = Object;
+    fecha.year = today.getFullYear();
+    fecha.day = (today.getDate() < 10) ? "0" + today.getDate() : today.getDate();
+    fecha.month = today.getMonth()+1;
+    return fecha;
+         
+    
+}
+
+
 //Funcion que retorana string con el consumo para la fecha.
-function getConsumo(id, fecha) {
-    return `${id}Kwh *<span>consumo desde las 14:30 en adelante</span>`;
+function getConsumo(id) {
+
+    let fecha = getToday();
+    consumo = $.getJSON(`http://www.scristi.ml/api/sice/getConsumo.php?ID=${id}&f_inicio=${fecha.year}-${fecha.month}-${fecha.day}&f_termino=${fecha.month}-${fecha.day + 1}-${fecha.year}`, data => {
+        if (data[0] != undefined)
+            document.getElementById('txtConsumo').innerHTML = data[0].consumo;
+        else
+            document.getElementById('txtConsumo').innerHTML = 0;
+    });
+ 
+    return `<span id='txtConsumo'>...</span>Kwh *<span>consumo del ${fecha.day}/${fecha.month}/${fecha.year} desde las 14:30 en adelante</span>`;
 }
 
 //Funcion ajax que envia un HTTPDREQUEST a la API ubicada en www.scristi.ml/api/sice/... para cambiar el flujo

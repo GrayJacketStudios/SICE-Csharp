@@ -44,10 +44,7 @@ namespace SICE
                 }
                 Response.Cookies.Set(responseCookie);
             }
-            if (!Request.IsAuthenticated && HttpContext.Current.Request.Url.AbsolutePath != "/Account/Login")
-            {
-                HttpContext.Current.Response.Redirect("Account/Login");
-            }
+
 
             Page.PreLoad += master_Page_PreLoad;
         }

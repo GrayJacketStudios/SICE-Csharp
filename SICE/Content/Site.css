@@ -181,4 +181,9 @@ input:checked + .slider:before {
 
     .slider.round:before {
         border-radius: 50%;
-    } 
+    }
+
+.scroll {
+    max-height: 100px;
+    overflow-y: auto;
+}

@@ -25,7 +25,7 @@ namespace SICE
                 drawJson = new WebClient().DownloadString("http://www.scristi.ml/api/sice/getDimensions.php?ID="+a.area_ID.ToString());
                 a.ad = new JavaScriptSerializer().Deserialize<areaDraw>(drawJson);
             });
-
+            
             areas.ForEach(a =>
             {
                 MapaDiv.InnerHtml += "<div" +

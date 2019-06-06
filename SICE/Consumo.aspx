@@ -8,11 +8,11 @@
       <h1>Consumo</h1>
         <div style="width:50%; float:left" >
            
-               <h2>Area</h2>
+               <h2 id="tituloArea">Area seleccionada: </h2>
                <div class="col-sm-4 scroll">
                    <div class="card">
                        <div id="LArCon" >
-                           <ul>
+                           <ul class="list-group list-group-flush">
 
                            </ul>
                        </div>
@@ -70,16 +70,26 @@
 
     <script type="text/javascript" >
         var ListaAreasCon = <%= json %>;
+        var currentSelected = Object;
+        changeASeleccionada(ListaAreasCon[0]);
         ListaAreasCon.map(function (arr) {
 
             appendLiArea(arr);
         });
 
 
+        function changeASeleccionada(el) {
+            currentSelected = el;
+            document.getElementById('tituloArea').innerText = "Area seleccionada: " + currentSelected.nombre;
+            
+        }
+
         function appendLiArea(el) {
             var li = document.createElement("li");
-            li.innerText = el.nombre;
-            document.getElementById("LArCon").append(li);
+            li.innerHTML = '<button type="button" class="btn btn-outline-secondary">' + el.nombre + '</button>';
+            li.firstElementChild.onclick = (ev) => { changeASeleccionada(el); };
+            li.className = "list-group-item";
+            document.getElementById("LArCon").firstElementChild.append(li);
 
         }
     </script>

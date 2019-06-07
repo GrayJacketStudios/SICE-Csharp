@@ -4,14 +4,13 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     
-    <div class="col-md-10" >
+    <div class="col-md-12" >
       <h1>Consumo</h1>
-        <div style="width:50%; float:left" >
-           
-               <h2 id="tituloArea">Area seleccionada: </h2>
-               <div class="col-sm-4 scroll">
+               
+               <div class="col-sm-3 ">
                    <div class="card">
-                       <div id="LArCon" >
+                       <div class="card-header"><h4 id="tituloArea">Area seleccionada: </h4></div>
+                       <div id="LArCon" class="card-body scroll">
                            <ul class="list-group list-group-flush">
 
                            </ul>
@@ -19,17 +18,29 @@
 
                    </div>
                </div>
-            <hr/>
-            Aqui va medidor que cuente de manera aditiva en tiempo real el consumo.
+            
+                <div class="col-sm-9 ">
 
-          
-         </div>
-       <div style="width:50%; float:right" >
-           
-               <h2>Mes</h2>
-               Aqui va una tabla sacada directamente de la base de datos parecida a esta, que de información de consumo a traves de los dias/meses/años
-          
-       </div>
+                
+                   <h2 class="tituloMes"><i class="fas fa-arrow-left arrowButton" onclick="restaMes()"></i> 	&nbsp; 	&nbsp;<span id="tituloMesAño"></span> 	&nbsp; 	&nbsp;<i class="fas fa-arrow-right arrowButton"  onclick="sumaMes()"></i></h2>
+                   <table class="table table-hover" id="tablaConsumo">
+                       <tr>
+                           <th scope="col">
+                               id
+                           </th>
+                           <th scope="col">
+                               Area
+                           </th>
+                           <th scope="col">
+                               día
+                           </th>
+                           <th scope="col">
+                               consumo
+                           </th>
+                       </tr>
+                   </table>
+               </div>
+
     </div>
 
     <asp:Chart ID="Meses" runat="server" Width="800px" Height="400"> 
@@ -69,28 +80,123 @@
 
 
     <script type="text/javascript" >
+        
+        const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         var ListaAreasCon = <%= json %>;
-        var currentSelected = Object;
+        var currentSelected = Object;//Inicializamos el objeto de forma vacia.
+        
+        var mesVisible = new Date().getMonth() + 1;//Llamamos al mes actual para iniciar la vista.
+        var yearVisible = new Date().getFullYear();//Tambien nos queremos mover entre años.
+        cambiaTituloMes();//Cambiamos el texto de la fecha visible.
+
         changeASeleccionada(ListaAreasCon[0]);
         ListaAreasCon.map(function (arr) {
 
             appendLiArea(arr);
         });
 
+        
+
 
         function changeASeleccionada(el) {
             currentSelected = el;
             document.getElementById('tituloArea').innerText = "Area seleccionada: " + currentSelected.nombre;
-            
+            clearTable();
+            getConsumo();
         }
+
+
 
         function appendLiArea(el) {
             var li = document.createElement("li");
-            li.innerHTML = '<button type="button" class="btn btn-outline-secondary">' + el.nombre + '</button>';
-            li.firstElementChild.onclick = (ev) => { changeASeleccionada(el); };
-            li.className = "list-group-item";
+            li.innerHTML = '<p>' + el.nombre + '</p>';
+            li.onclick = (ev) => { changeASeleccionada(el); };
+            li.className = "list-group-item list-Areas";
             document.getElementById("LArCon").firstElementChild.append(li);
 
         }
+
+
+        function cambiaTituloMes() {
+            document.getElementById("tituloMesAño").innerText = monthNames[mesVisible - 1] + " del " + yearVisible;
+        }
+
+        function restaMes() {
+            if (mesVisible === 1) {
+                mesVisible = 12;
+                yearVisible -= 1;
+            }
+            else
+                mesVisible -= 1;
+            cambiaTituloMes();
+            clearTable();
+            getConsumo();
+        }
+
+        function sumaMes() {
+            if (mesVisible === 12) {
+                mesVisible = 1;
+                yearVisible += 1;
+            }
+            else
+                mesVisible += 1;
+
+            cambiaTituloMes();
+            clearTable();
+            getConsumo();
+        }
+
+        function clearTable() {
+            for(var i = document.getElementById("tablaConsumo").rows.length - 1; i > 0; i--)
+            {
+                document.getElementById("tablaConsumo").deleteRow(i);
+            }
+        }
+
+        function addCon2Table(data) {
+            var table = document.getElementById("tablaConsumo");
+            var newRow = table.insertRow(table.rows.length);
+            if (data[0] != undefined) {
+                var IdCell = newRow.insertCell(0);
+                var AreaCell = newRow.insertCell(1);
+                var diaCell = newRow.insertCell(2);
+                var consumoCell = newRow.insertCell(3);
+            
+                IdCell.innerText = data[0].ID;
+                AreaCell.innerText = data[0].area_ID;
+                diaCell.innerText = data[0].f_inicio;
+                consumoCell.innerText = data[0].consumo + " KW";
+            }
+                
+
+        }
+
+        function getDaysInMonth(m, y) {
+            return m===2 ? y & 3 || !(y%25) && y & 15 ? 28 : 29 : 30 + (m+(m>>3)&1);
+        }
+
+
+        //Funcion que retorana string con el consumo para cada fecha.
+        function getConsumo() {
+            for (var i = 1; i <= getDaysInMonth(mesVisible, yearVisible); i += 1) {
+                let cons = $.getJSON(`http://www.scristi.ml/api/sice/getConsumo.php?ID=${currentSelected.area_ID}&f_inicio=${yearVisible}-${mesVisible}-${i}&f_termino=${yearVisible}-${mesVisible}-${(i + 1)}`, data => {
+                    addCon2Table(data);
+            });
+            }
+            /*
+            consumo = $.getJSON(`http://www.scristi.ml/api/sice/getConsumo.php?ID=${id}&f_inicio=${fecha.year}-${fecha.month}-${fecha.day}&f_termino=${fecha.month}-${fecha.day + 1}-${fecha.year}`, data => {
+                if (data[0] != undefined)
+                    document.getElementById('txtConsumo').innerHTML = data[0].consumo;
+                else
+                    document.getElementById('txtConsumo').innerHTML = 0;
+            });
+ 
+            return `<span id='txtConsumo'>...</span>Kwh *<span>consumo del ${fecha.day}/${fecha.month}/${fecha.year} desde las 14:30 en adelante</span>`;
+            */
+        }
+
+
+
+
     </script>
 </asp:Content>

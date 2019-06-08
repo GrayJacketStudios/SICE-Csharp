@@ -3,7 +3,7 @@
 <%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
     <div class="col-md-12" >
       <h1>Consumo</h1>
                
@@ -43,51 +43,70 @@
 
     </div>
 
-    <asp:Chart ID="Meses" runat="server" Width="800px" Height="400"> 
-   <Series> 
-      <asp:Series Name="MSeries" YValueType="Int32" ChartType="Column" ChartArea="MainChartArea"> 
-         <Points> 
-            <asp:DataPoint AxisLabel="Enero" YValues="17,0" /> 
-            <asp:DataPoint AxisLabel="Febrero" YValues="15,0" /> 
-            <asp:DataPoint AxisLabel="Marzo" YValues="6,0" /> 
-            <asp:DataPoint AxisLabel="Abril" YValues="4,0" /> 
-            <asp:DataPoint AxisLabel="Mayo" YValues="3,0" /> 
-            <asp:DataPoint AxisLabel="Junio" YValues="2,0" /> 
-            <asp:DataPoint AxisLabel="Julio" YValues="5,0" /> 
-            <asp:DataPoint AxisLabel="Agosto" YValues="6,0" /> 
-            <asp:DataPoint AxisLabel="Septiembre" YValues="12,0" /> 
-            <asp:DataPoint AxisLabel="Octubre" YValues="13,0" /> 
-            <asp:DataPoint AxisLabel="Noviembre" YValues="14,0" /> 
-            <asp:DataPoint AxisLabel="Diciembre" YValues="11,0" /> 
-         </Points> 
-      </asp:Series> 
-   </Series> 
-   <ChartAreas> 
-      <asp:ChartArea Name="MainChartArea"> 
-          <AxisX Interval="1" Title="Meses">
-            </AxisX>
-          <AxisY Title="KW"></AxisY>
-      </asp:ChartArea> 
-   </ChartAreas> 
-</asp:Chart>
-    <br />Aqui va un grafico de barras parecido a este que muestre de manera grafica el consumo a traves de los dias/meses/años. Debe sacar los datos de una base de datos a traves de origen de datos.
 
 
 
+    <div class="col-md-12">
+        <canvas id="consumoAnual" width="600" height="300" style="align-self:auto;"></canvas>
+    </div>
 
 
-
-
-
-    <script type="text/javascript" >
-        
+    <script>
         const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        var ctx = document.getElementById('consumoAnual').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: monthNames,
+                datasets: [{
+                    label: 'KW area',
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                },
+                {
+                    label: 'KW total',
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+                    // Cambiamos este tipo para hacerlo una linea
+                    type: 'line'
+                }
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+        
+        
         var ListaAreasCon = <%= json %>;
         var currentSelected = Object;//Inicializamos el objeto de forma vacia.
         
         var mesVisible = new Date().getMonth() + 1;//Llamamos al mes actual para iniciar la vista.
         var yearVisible = new Date().getFullYear();//Tambien nos queremos mover entre años.
         cambiaTituloMes();//Cambiamos el texto de la fecha visible.
+        getMonthConsumo();//Actualizamos la tabla general
 
         changeASeleccionada(ListaAreasCon[0]);
         ListaAreasCon.map(function (arr) {
@@ -103,6 +122,7 @@
             document.getElementById('tituloArea').innerText = "Area seleccionada: " + currentSelected.nombre;
             clearTable();
             getConsumo();
+            getMonthConsumo2()
         }
 
 
@@ -178,23 +198,75 @@
 
         //Funcion que retorana string con el consumo para cada fecha.
         function getConsumo() {
+            let date1;
+            let date2;
             for (var i = 1; i <= getDaysInMonth(mesVisible, yearVisible); i += 1) {
-                let cons = $.getJSON(`http://www.scristi.ml/api/sice/getConsumo.php?ID=${currentSelected.area_ID}&f_inicio=${yearVisible}-${mesVisible}-${i}&f_termino=${yearVisible}-${mesVisible}-${(i + 1)}`, data => {
+                date1 = `${yearVisible}-${mesVisible}-${i}`;
+                date2 = `${yearVisible}-`;
+                if (i == getDaysInMonth(mesVisible, yearVisible))
+                    date2 += `${(mesVisible + 1)}-1`;
+                else
+                    date2 += `${mesVisible}-${i+1.00}`;
+
+                let cons = $.getJSON(`http://www.scristi.ml/api/sice/getConsumo.php?ID=${currentSelected.area_ID}&f_inicio=${date1}&f_termino=${date2}`, data => {
                     addCon2Table(data);
             });
             }
-            /*
-            consumo = $.getJSON(`http://www.scristi.ml/api/sice/getConsumo.php?ID=${id}&f_inicio=${fecha.year}-${fecha.month}-${fecha.day}&f_termino=${fecha.month}-${fecha.day + 1}-${fecha.year}`, data => {
-                if (data[0] != undefined)
-                    document.getElementById('txtConsumo').innerHTML = data[0].consumo;
-                else
-                    document.getElementById('txtConsumo').innerHTML = 0;
-            });
- 
-            return `<span id='txtConsumo'>...</span>Kwh *<span>consumo del ${fecha.day}/${fecha.month}/${fecha.year} desde las 14:30 en adelante</span>`;
-            */
         }
 
+        
+        
+        function actualizaTabla1(data) {
+
+            myChart.data.datasets[1].data[data.mes-1] = data.consumo;
+            myChart.update();
+        }
+
+        function actualizaTabla2(data) {
+            myChart.data.datasets[0].data[data.mes-1] = data.consumo;
+            myChart.update();
+        }
+
+
+        //Funcion que retorana la cantidad de cosumo segun el mes solicitado.
+        function getMonthConsumo() {
+            let date1;
+            let date2;
+            for (var ix = 0; ix <= 11; ix += 1) {
+                if (ix < 9) {
+                    date1 = `0${(ix+1)}`;
+                }
+                else {
+                    date1 = `${(ix+1)}`;
+
+                }
+                
+                $.getJSON(`http://www.scristi.ml/api/sice/getMonthConsumo.php?year=${yearVisible}&mes=${date1}`, data => {
+                    actualizaTabla1(JSON.parse(data));
+                });
+            }
+            
+        }
+
+        //Funcion que retorana la cantidad de cosumo segun el mes solicitado para el area.
+        function getMonthConsumo2() {
+            let date1;
+
+            for (var ix = 0; ix <= 11; ix += 1) {
+                if (ix < 9) {
+                    date1 = `0${(ix+1)}`;
+                }
+                else {
+                    date1 = `${(ix+1)}`;
+
+                }
+
+                $.getJSON(`http://www.scristi.ml/api/sice/getMonthConsumoArea.php?ID=${currentSelected.area_ID}&year=${yearVisible}&mes=${date1}`, data => {
+                    actualizaTabla2(JSON.parse(data));
+                });
+            }
+            
+        }
 
 
 

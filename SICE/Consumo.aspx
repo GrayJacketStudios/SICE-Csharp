@@ -217,7 +217,7 @@
         
         
         function actualizaTabla1(data) {
-
+            console.log(data);
             myChart.data.datasets[1].data[data.mes-1] = data.consumo;
             myChart.update();
         }

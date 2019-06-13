@@ -18,15 +18,28 @@ namespace SICE
         protected void Page_Load(object sender, EventArgs e)
         {
             var drawJson = "";
-            json = new WebClient().DownloadString("http://www.scristi.ml/api/sice/getHabitaciones.php");
-            areas = new JavaScriptSerializer().Deserialize<List<areasJson>>(json);
+            try
+            {
+                json = new WebClient().DownloadString("http://www.scristi.ml/api/sice/getHabitaciones.php");
+                areas = new JavaScriptSerializer().Deserialize<List<areasJson>>(json);
+            }
+            catch (Exception error) { };
 
-            areas.ForEach( a => {
-                drawJson = new WebClient().DownloadString("http://www.scristi.ml/api/sice/getDimensions.php?ID="+a.area_ID.ToString());
-                a.ad = new JavaScriptSerializer().Deserialize<areaDraw>(drawJson);
-            });
+            try
+            {
+                areas.ForEach( a => {
+                
+                    drawJson = new WebClient().DownloadString("http://www.scristi.ml/api/sice/getDimensions.php?ID=" + a.area_ID.ToString());
+                    a.ad = new JavaScriptSerializer().Deserialize<areaDraw>(drawJson);
+                
+                
+                });
+            }
+            catch (Exception error) { };
 
-            areas.ForEach(a =>
+            try
+            {
+                areas.ForEach(a =>
             {
                 MapaDiv.InnerHtml += "<div" +
                 "                   id='areaMap_"+a.area_ID+"'" +
@@ -40,8 +53,12 @@ namespace SICE
                                     "background-color: " +((a.flujo == 1)? "#fd5432" : "#00ff00" )+ ";'" +
                                     "onClick='showModal("+a+")'><h4 align='center'>" + a.nombre+"</h4></div>";
             });
+            }
+            catch (Exception error) {
+                MapaDiv.InnerHtml = "FALLO EN LA CONEXION CON EL SERVIDOR";
+                    };
 
-                
+
         }
 
     

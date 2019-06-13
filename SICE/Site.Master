@@ -13,7 +13,7 @@
     </asp:PlaceHolder>
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-
+    <script src="https://kit.fontawesome.com/388f342b76.js"></script>
 </head>
 <body>
     
@@ -54,7 +54,7 @@
                             <LoggedInTemplate>
                                 <li><a runat="server" href="~/">Mapa de areas</a></li>
                                 <li><a runat="server" href="~/">Eventos</a></li>
-                                <li><a runat="server" href="~/">Consumo</a></li>
+                                <li><a runat="server" href="~/Consumo">Consumo</a></li>
              
                             </LoggedInTemplate>
 

@@ -181,4 +181,30 @@ input:checked + .slider:before {
 
     .slider.round:before {
         border-radius: 50%;
-    } 
+    }
+
+.scroll {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.list-Areas:hover{
+    background-color: #ffd800;
+    color:azure;
+    cursor: pointer;
+}
+
+.list-Areas .activa {
+    background-color: #0094ff;
+    color: azure;
+}
+
+.tituloMes {
+    width: 100%;
+    text-align: center;
+}
+
+.arrowButton:hover {
+    color: darkblue;
+    cursor: pointer;
+}

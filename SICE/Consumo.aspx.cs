@@ -15,7 +15,14 @@ namespace SICE
         protected string json = null;
         protected void Page_Load(object sender, EventArgs e)
         {
-            json = new WebClient().DownloadString("http://www.scristi.ml/api/sice/getHabitaciones.php");
+            try
+            {
+                json = new WebClient().DownloadString("http://www.scristi.ml/api/sice/getHabitaciones.php");
+            }
+            catch(Exception error)
+            {
+
+            }
 
             
 

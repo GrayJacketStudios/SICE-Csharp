@@ -194,6 +194,11 @@ input:checked + .slider:before {
     cursor: pointer;
 }
 
+.list-Areas .activa {
+    background-color: #0094ff;
+    color: azure;
+}
+
 .tituloMes {
     width: 100%;
     text-align: center;

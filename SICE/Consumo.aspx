@@ -12,10 +12,13 @@
                        <div class="card-header"><h4 id="tituloArea">Area seleccionada: </h4></div>
                        <div id="LArCon" class="card-body scroll">
                            <ul class="list-group list-group-flush">
-
+                               
                            </ul>
                        </div>
 
+                   </div>
+                   <div class="card">
+                       <canvas id="graficoConsumo" width="255" height="300" style="align-self:auto;"></canvas>
                    </div>
                </div>
             
@@ -97,10 +100,45 @@
                     }]
                 }
             }
+    });
+
+    var ListaAreasCon = <%= json %>;
+
+
+    var graf2 = document.getElementById('graficoConsumo').getContext('2d');
+    var graficoTotal = new Chart(graf2, {
+            type: 'pie',
+        data: {
+                labels: ["Habitacion 1", "Habitacion 2", "Habitacion 3", "Habitacion 4", "Habitacion 5", "Habitacion 6", "Habitacion 7", "Habitacion 8"],
+                datasets: [{
+                    label: 'KW area',
+                    data: [12, 5, 10, 23, 3, 34, 5, 12],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(25, 15, 154, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(25, 15, 154, 1)'
+                    ],
+                    borderWidth: 1
+                }
+                ]
+            }
         });
         
         
-        var ListaAreasCon = <%= json %>;
+        
         var currentSelected = Object;//Inicializamos el objeto de forma vacia.
         
         var mesVisible = new Date().getMonth() + 1;//Llamamos al mes actual para iniciar la vista.
@@ -117,7 +155,8 @@
         
 
 
-        function changeASeleccionada(el) {
+        function changeASeleccionada(el, ev) {
+            console.log(ev);
             currentSelected = el;
             document.getElementById('tituloArea').innerText = "Area seleccionada: " + currentSelected.nombre;
             clearTable();
@@ -130,10 +169,12 @@
         function appendLiArea(el) {
             var li = document.createElement("li");
             li.innerHTML = '<p>' + el.nombre + '</p>';
-            li.onclick = (ev) => { changeASeleccionada(el); };
+            li.onclick = (ev) => {
+                changeASeleccionada(el, ev);
+                li.classList.add("activa");
+            };
             li.className = "list-group-item list-Areas";
             document.getElementById("LArCon").firstElementChild.append(li);
-
         }
 
 

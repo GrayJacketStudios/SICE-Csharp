@@ -20,7 +20,7 @@
                         <div class="col-md-10">
                             <asp:TextBox runat="server" ID="Email" CssClass="form-control" TextMode="Email" />
                             <asp:RequiredFieldValidator runat="server" ControlToValidate="Email"
-                                CssClass="text-danger" ErrorMessage="EL email es requerido." />
+                                CssClass="text-danger" ErrorMessage="El email es requerido." />
                         </div>
                     </div>
                     <div class="form-group">

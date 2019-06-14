@@ -224,7 +224,7 @@
                 var consumoCell = newRow.insertCell(3);
             
                 IdCell.innerText = data[0].ID;
-                AreaCell.innerText = data[0].area_ID;
+                AreaCell.innerText = data[0].nombre;
                 diaCell.innerText = data[0].f_inicio;
                 consumoCell.innerText = data[0].consumo + " KW";
             }

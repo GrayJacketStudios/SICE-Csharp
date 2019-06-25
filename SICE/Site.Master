@@ -53,7 +53,7 @@
                         <asp:LoginView runat="server" ViewStateMode="Disabled">
                             <LoggedInTemplate>
                                 <li><a runat="server" href="~/">Mapa de areas</a></li>
-                                <li><a runat="server" href="~/">Eventos</a></li>
+                                <li><a runat="server" href="~/Events/List">Eventos</a></li>
                                 <li><a runat="server" href="~/Consumo">Consumo</a></li>
              
                             </LoggedInTemplate>

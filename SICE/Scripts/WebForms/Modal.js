@@ -39,7 +39,7 @@ function cambiaFlujo(id, flujo) {
     renderModal();
     let areaDiv = document.getElementById(`areaMap_${id}`);
     areaDiv.style.backgroundColor = (flujo == 1) ? "#fd5432" : "#00ff00";
-    areaDiv.onclick = function () { showModal(area.id,area.nombre,flujo) };
+    areaDiv.setAttribute('onclick', 'showModal("' + area.id + '","' + area.nombre + '","' + flujo +'")' );
 }
 
 //Funcion que nos muestra el texto correspondiente segun el area en el modal. se puede llamar para actualizar segun estado.

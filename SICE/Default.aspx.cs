@@ -50,7 +50,7 @@ namespace SICE
                                     "left: "+a.ad.pos_x.ToString()+ "px;" +
                                     "top: "+a.ad.pos_y.ToString()+ "px;" +
                                     "border :" +((a.flujo == 1) ? "solid" : "dotted" )+ ";" +
-                                    "background-color: " +((a.flujo == 1)? "#fd5432" : "#00ff00" )+ ";'" +
+                                    "background-color: " +((a.flujo == 1)? "#fd5432" : "#797979") + ";'" +
                                     "onClick='showModal("+a+")'><h4 align='center'>" + a.nombre+"</h4></div>";
             });
             }

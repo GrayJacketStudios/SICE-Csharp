@@ -38,14 +38,14 @@ function cambiaFlujo(id, flujo) {
     $.post(`http://www.scristi.ml/api/sice/changeFlujo.php?ID=${id}&flujo=${flujo}`);
     renderModal();
     let areaDiv = document.getElementById(`areaMap_${id}`);
-    areaDiv.style.backgroundColor = (flujo == 1) ? "#fd5432" : "#00ff00";
+    areaDiv.style.backgroundColor = (flujo == 1) ? "#fd5432" : "#797979";
     areaDiv.setAttribute('onclick', 'showModal("' + area.id + '","' + area.nombre + '","' + flujo +'")' );
 }
 
 //Funcion que nos muestra el texto correspondiente segun el area en el modal. se puede llamar para actualizar segun estado.
 function renderModal() {
     modal.children[0].children[1].innerHTML = "Area: " + area.nombre;
-    modal.children[0].style.backgroundColor = (area.flujo == 1) ? "#fd5432" : "#00ff00";
+    modal.children[0].style.backgroundColor = (area.flujo == 1) ? "#fd5432" : "#797979";
     modal.children[1].innerHTML = `<p class='text-flujo'>Estado del flujo: ${((area.flujo == "1") ? "Cerrado" : "Abierto")} <div>   
                                             
                                                 <label class="switch">

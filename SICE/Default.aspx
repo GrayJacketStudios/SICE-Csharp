@@ -5,7 +5,6 @@
     <div class="row">
         <div class="col-md-12">
             <h2 style="text-align:center;">Mapa de areas</h2>
-            <p id="Ptest" runat="server"/>
             <div class="mapa" id="MapaDiv" runat="server">
             </div>
         </div>

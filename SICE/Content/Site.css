@@ -47,6 +47,16 @@ input[type="select"] {
     left: auto;
     right: auto;
 }
+.areaCerrada {
+    background-color: #fd5432;
+    border: solid;
+    position:absolute;
+}
+.areaAbierta {
+    background-color: #797979;
+    border: dotted;
+    position:absolute;
+}
 
 
 /* Modal Header */

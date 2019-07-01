@@ -42,15 +42,14 @@ namespace SICE
                 areas.ForEach(a =>
             {
                 MapaDiv.InnerHtml += "<div" +
-                "                   id='areaMap_"+a.area_ID+"'" +
+                "                   id='areaMap_" + a.area_ID + "'" +
+                "                   class='"+ ((a.flujo == 0) ? ("areaAbierta") : ("areaCerrada")) + "'"+
                 "                    style='" +
-                                    "position: absolute;" +
                                     "width: "+a.ad.size_x.ToString()+"px;" +
                                     "height: "+a.ad.size_y.ToString()+ "px;" +
                                     "left: "+a.ad.pos_x.ToString()+ "px;" +
                                     "top: "+a.ad.pos_y.ToString()+ "px;" +
-                                    "border :" +((a.flujo == 1) ? "solid" : "dotted" )+ ";" +
-                                    "background-color: " +((a.flujo == 1)? "#fd5432" : "#797979") + ";'" +
+                                     ";'" +
                                     "onClick='showModal("+a+")'><h4 align='center'>" + a.nombre+"</h4></div>";
             });
             }

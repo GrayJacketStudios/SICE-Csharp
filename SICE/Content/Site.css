@@ -57,6 +57,16 @@ input[type="select"] {
     border: dotted;
     position:absolute;
 }
+.leyenda {
+    width: 128px;
+
+    background-color: white;
+    border: 1px solid;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+
+}
 
 
 /* Modal Header */

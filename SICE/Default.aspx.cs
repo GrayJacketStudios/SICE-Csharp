@@ -52,6 +52,13 @@ namespace SICE
                                      ";'" +
                                     "onClick='showModal("+a+")'><h4 align='center'>" + a.nombre+"</h4></div>";
             });
+                MapaDiv.InnerHtml += "<div class='leyenda'>" +
+                                        "<ul class='list-group'>" +
+                                            "<li class='list-group-item'><div style='background-color: red; height: 8px; width:8px; display: inline-block;'></div> Encendido</li>" +
+                                            "<li class='list-group-item'><div style='background-color: gray; height: 8px; width:8px; display: inline-block;'></div> Apagado</li>" +
+                                        "</ul>" +
+                                    "</div>";
+                                    
             }
             catch (Exception error) {
                 MapaDiv.InnerHtml = "FALLO EN LA CONEXION CON EL SERVIDOR";

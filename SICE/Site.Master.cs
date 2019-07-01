@@ -5,6 +5,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 
@@ -72,8 +73,29 @@ namespace SICE
             }
         }
 
+
+        private void AddMenuItem(string text, string link)
+        {
+            HtmlGenericControl li = new HtmlGenericControl("li");
+            ulNavBar.Controls.Add(li);
+
+            HtmlGenericControl anchor = new HtmlGenericControl("a");
+            anchor.Attributes.Add("href", link);
+            anchor.InnerText = text;
+
+
+
+            li.Controls.Add(anchor);
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Context.User.Identity.IsAuthenticated)
+            {
+                AddMenuItem("Mapa de areas", "/");
+                AddMenuItem("Eventos", "/Events/List");
+                AddMenuItem("Consumo", "/Consumo");
+            }
 
         }
 

@@ -49,17 +49,8 @@
                     <a class="navbar-brand" runat="server" href="~/">SICE manager</a>
                 </div>
                 <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <asp:LoginView runat="server" ViewStateMode="Disabled">
-                            <LoggedInTemplate>
-                                <li><a runat="server" href="~/">Mapa de areas</a></li>
-                                <li><a runat="server" href="~/Events/List">Eventos</a></li>
-                                <li><a runat="server" href="~/Consumo">Consumo</a></li>
-             
-                            </LoggedInTemplate>
+                    <ul class='nav navbar-nav' id="ulNavBar" runat="server"></ul>
 
-                        </asp:LoginView>
-                    </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
                             <ul class="nav navbar-nav navbar-right">

@@ -31,7 +31,7 @@
                     </asp:TableRow>
 
                 </asp:table>
-                <%= data %>
+                
             </div>
         </div>
     </div>

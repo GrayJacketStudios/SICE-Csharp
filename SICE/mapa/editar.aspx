@@ -3,8 +3,8 @@
 
     <iframe id="godotEditor"
     title="Area map editor"
-    width="1170"
-    height="800"
+    width="1180"
+    height="817"
     src="http://www.scristi.ml/mapEditor.html">
 </iframe>
 </asp:Content>

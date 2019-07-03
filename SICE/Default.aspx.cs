@@ -58,6 +58,8 @@ namespace SICE
                                             "<li class='list-group-item'><div style='background-color: gray; height: 8px; width:8px; display: inline-block;'></div> Apagado</li>" +
                                         "</ul>" +
                                     "</div>";
+
+                MapaDiv.InnerHtml += "<div class='fa-icon'><a href='/mapa/editar'><i class='fas fa-pencil-ruler fa-3x' style='color: red; left: 8px; top: 8px;'></i></a></div>";
                                     
             }
             catch (Exception error) {

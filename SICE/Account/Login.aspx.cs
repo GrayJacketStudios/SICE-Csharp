@@ -44,7 +44,7 @@ namespace SICE.Account
                         break;
                     case SignInStatus.Failure:
                     default:
-                        FailureText.Text = "Invalid login attempt";
+                        FailureText.Text = "Intento de login invalido";
                         ErrorMessage.Visible = true;
                         break;
                 }

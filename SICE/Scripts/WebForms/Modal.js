@@ -53,7 +53,7 @@ function cambiaFlujo(id, flujo) {
 function renderModal() {
     modal.children[0].children[1].innerHTML = "Area: " + area.nombre;
     modal.children[0].style.backgroundColor = (area.flujo == 1) ? "#fd5432" : "#797979";
-    modal.children[1].innerHTML = `<p class='text-flujo'>Estado del flujo: ${((area.flujo == "1") ? "Apagado" : "Encendido")} <div>   
+    modal.children[1].innerHTML = `<p class='text-flujo'>Estado del flujo: ${((area.flujo == "1") ? "Encendido" : "Apagado")} <div>   
                                             
                                                 <label class="switch">
                                                     <input type="checkbox" onchange="cambiaFlujo(${area.id},${parseInt(area.flujo - 1) * (-1)})" ${(area.flujo == "1") ? "checked" : ""}/>

@@ -26,9 +26,10 @@
 
                 
                    <h2 class="tituloMes"><i class="fas fa-arrow-left arrowButton" onclick="restaMes()"></i> 	&nbsp; 	&nbsp;<span id="tituloMesAño"></span> 	&nbsp; 	&nbsp;<i class="fas fa-arrow-right arrowButton"  onclick="sumaMes()"></i></h2>
-                   <table class="table table-hover" id="tablaConsumo">
+                   <div id="LArCon" class="card-body scroll" style="max-height: 550px!important;">
+                    <table class="table table-hover" id="tablaConsumo">
                        <tr>
-                           <th scope="col">
+                           <%--<th scope="col">--%>
                                id
                            </th>
                            <th scope="col">
@@ -41,6 +42,7 @@
                                consumo
                            </th>
                        </tr>
+                        </div>
                    </table>
                </div>
 

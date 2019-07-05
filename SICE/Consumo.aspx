@@ -239,7 +239,7 @@
         }
 
 
-        //Funcion que retorana string con el consumo para cada fecha.
+        //Funcion que retornara string con el consumo para cada fecha.
         function getConsumo() {
             let date1;
             let date2;
@@ -271,7 +271,7 @@
         }
 
 
-        //Funcion que retorana la cantidad de cosumo segun el mes solicitado.
+        //Funcion que retornara la cantidad de cosumo segun el mes solicitado.
         function getMonthConsumo() {
             let date1;
             let date2;
@@ -291,7 +291,7 @@
             
         }
 
-        //Funcion que retorana la cantidad de cosumo segun el mes solicitado para el area.
+        //Funcion que retornara la cantidad de cosumo segun el mes solicitado para el area.
         function getMonthConsumo2() {
             let date1;
 

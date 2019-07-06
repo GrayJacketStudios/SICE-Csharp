@@ -95,6 +95,7 @@ namespace SICE
                 AddMenuItem("Mapa de areas", "/");
                 AddMenuItem("Eventos", "/Events/List");
                 AddMenuItem("Consumo", "/Consumo");
+                AddMenuItem("Administración", "/PanelAdmin");
             }
 
         }

@@ -10,6 +10,6 @@
 namespace SICE {
     
     
-    public partial class Consumo {
+    public partial class PanelAdmin {
     }
 }

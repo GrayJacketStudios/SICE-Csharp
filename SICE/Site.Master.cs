@@ -8,6 +8,8 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using SICE.Models;
 
 namespace SICE
 {
@@ -95,10 +97,22 @@ namespace SICE
                 AddMenuItem("Mapa de areas", "/");
                 AddMenuItem("Eventos", "/Events/List");
                 AddMenuItem("Consumo", "/Consumo");
-                AddMenuItem("Administración", "/PanelAdmin");
-            }
 
-        }
+                var user = Context.User.Identity;
+
+                var rol = Roles.GetRolesForUser(user.GetUserId());
+                
+
+
+                //Temporal hasta que resolvamos el tema de los roles.
+                if (Roles.IsUserInRole("Admin"))
+                {
+                    AddMenuItem("Administración", "/PanelAdmin");
+                }
+                
+            }
+            
+        }  
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
         {

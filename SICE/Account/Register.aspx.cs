@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -11,6 +12,22 @@ namespace SICE.Account
 {
     public partial class Register : Page
     {
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = User.Identity;
+
+                if (!Roles.IsUserInRole("Admin"))
+                {
+                    Response.Redirect("~/MapArea.aspx");
+                }
+
+            }
+
+        }
+
         protected void CreateUser_Click(object sender, EventArgs e)
         {
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -19,11 +36,7 @@ namespace SICE.Account
             IdentityResult result = manager.Create(user, Password.Text);
             if (result.Succeeded)
             {
-                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                //string code = manager.GenerateEmailConfirmationToken(user.Id);
-                //string callbackUrl = IdentityHelper.GetUserConfirmationRedirectUrl(code, user.Id, Request);
-                //manager.SendEmail(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>.");
-
+                Roles.AddUserToRole(user.Id, "Usuario");
                 //Eliminada linea que provocaba iniciar sesión en la cuenta recien creada.
                 IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
             }
@@ -31,6 +44,7 @@ namespace SICE.Account
             {
                 ErrorMessage.Text = result.Errors.FirstOrDefault();
             }
+
         }
     }
 }

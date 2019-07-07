@@ -225,6 +225,8 @@
     <Content Include="Account\Web.config" />
     <Content Include="ClassDiagram1.cd" />
     <Content Include="images\background_16px.png" />
+    <Content Include="ListaArea.aspx" />
+    <Content Include="MapArea.aspx" />
     <Content Include="mapa\editar.aspx" />
     <Content Include="PanelAdmin.aspx" />
     <Content Include="webfonts\fa-brands-400.svg" />
@@ -438,6 +440,20 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="ListaArea.aspx.cs">
+      <DependentUpon>ListaArea.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListaArea.aspx.designer.cs">
+      <DependentUpon>ListaArea.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MapArea.aspx.cs">
+      <DependentUpon>MapArea.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MapArea.aspx.designer.cs">
+      <DependentUpon>MapArea.aspx</DependentUpon>
     </Compile>
     <Compile Include="mapa\editar.aspx.cs">
       <DependentUpon>editar.aspx</DependentUpon>

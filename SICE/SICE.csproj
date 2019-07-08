@@ -208,7 +208,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Events\List.aspx" />
-    <Content Include="Events\ListHorario - Copy.aspx" />
+    <Content Include="Events\ListHorario.aspx" />
     <Content Include="Events\ListHooks.aspx" />
     <Content Include="Events\ListCal.aspx" />
     <Content Include="Events\menuEventos.html" />
@@ -434,12 +434,12 @@
     <Compile Include="Events\List.aspx.designer.cs">
       <DependentUpon>List.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Events\ListHorario - Copy.aspx.cs">
-      <DependentUpon>ListHorario - Copy.aspx</DependentUpon>
+    <Compile Include="Events\ListHorario.aspx.cs">
+      <DependentUpon>ListHorario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Events\ListHorario - Copy.aspx.designer.cs">
-      <DependentUpon>ListHorario - Copy.aspx</DependentUpon>
+    <Compile Include="Events\ListHorario.aspx.designer.cs">
+      <DependentUpon>ListHorario.aspx</DependentUpon>
     </Compile>
     <Compile Include="Events\ListHooks.aspx.cs">
       <DependentUpon>ListHooks.aspx</DependentUpon>

@@ -60,7 +60,12 @@ namespace SICE
                                         "</ul>" +
                                     "</div>";
 
-                MapaDiv.InnerHtml += "<div class='fa-icon'><a href='/mapa/editar'><i class='fas fa-pencil-ruler fa-3x' style='color: red; left: 8px; top: 8px;'></i></a></div>";
+
+                if (Context.User.IsInRole("Admin"))
+                {
+                    MapaDiv.InnerHtml += "<div class='fa-icon'><a href='/mapa/editar'><i class='fas fa-pencil-ruler fa-3x' style='color: red; left: 8px; top: 8px;'></i></a></div>";
+
+                }
 
             }
             catch (Exception error)

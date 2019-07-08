@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace SICE.Events
 {
-    public partial class ListCal : System.Web.UI.Page
+    public partial class ListHooks : System.Web.UI.Page
     {
         protected String data = "";
 
@@ -18,9 +18,6 @@ namespace SICE.Events
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            getData4Table();
-            readData();
-            populateTable();
         }
 
         protected string readAreasName(String ids)
@@ -42,7 +39,7 @@ namespace SICE.Events
 
         protected void getData4Table()
         {
-            string url = "http://scristi.ml/api/sice/getEventosActivos.php?evento=fecha";
+            string url = "http://scristi.ml/api/sice/getEventosActivos.php?evento=hooks";
             var webClient = new WebClient();
             data = webClient.DownloadString(url);
         }
@@ -54,23 +51,23 @@ namespace SICE.Events
             {
                 var eID = new TableCell();
                 var aList = new TableCell();
-                var fInicio = new TableCell();
-                var fFin = new TableCell();
+                var inicio = new TableCell();
+                var termino = new TableCell();
                 var flujoDeseado = new TableCell();
                 var estado = new TableCell();
                 var row = new TableRow();
 
-                eID.Text = obj.ID;
+                eID.Text = obj.event_time_id;
                 aList.Text = readAreasName("" + obj.areas_afectadas_id);
-                fInicio.Text = obj.fecha_inicio;
-                fFin.Text = obj.fecha_termino;
+                inicio.Text = obj.hora_inicio;
+                termino.Text = obj.hora_termino;
                 flujoDeseado.Text = (obj.modo == "1") ? "Encendido" : "Apagado";
                 estado.Text = (obj.estado == "1") ? "Encendido" : "Apagado";
 
                 row.Cells.Add(eID);
                 row.Cells.Add(aList);
-                row.Cells.Add(fInicio);
-                row.Cells.Add(fFin);
+                row.Cells.Add(inicio);
+                row.Cells.Add(termino);
                 row.Cells.Add(flujoDeseado);
                 row.Cells.Add(estado);
 

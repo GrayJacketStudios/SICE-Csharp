@@ -208,6 +208,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Events\List.aspx" />
+    <Content Include="Events\ListHorario - Copy.aspx" />
+    <Content Include="Events\ListHooks.aspx" />
     <Content Include="Events\ListCal.aspx" />
     <Content Include="Events\menuEventos.html" />
     <Content Include="favicon.ico" />
@@ -431,6 +433,20 @@
     </Compile>
     <Compile Include="Events\List.aspx.designer.cs">
       <DependentUpon>List.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Events\ListHorario - Copy.aspx.cs">
+      <DependentUpon>ListHorario - Copy.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events\ListHorario - Copy.aspx.designer.cs">
+      <DependentUpon>ListHorario - Copy.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Events\ListHooks.aspx.cs">
+      <DependentUpon>ListHooks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events\ListHooks.aspx.designer.cs">
+      <DependentUpon>ListHooks.aspx</DependentUpon>
     </Compile>
     <Compile Include="Events\ListCal.aspx.cs">
       <DependentUpon>ListCal.aspx</DependentUpon>

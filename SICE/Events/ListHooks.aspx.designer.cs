@@ -10,7 +10,7 @@
 namespace SICE.Events {
     
     
-    public partial class List {
+    public partial class ListHooks {
         
         /// <summary>
         /// tablaEvCal control.

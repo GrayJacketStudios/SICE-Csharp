@@ -49,7 +49,7 @@ namespace SICE
             }
             if (!Request.IsAuthenticated && HttpContext.Current.Request.Url.AbsolutePath != "/Account/Login")
             {
-                //HttpContext.Current.Response.Redirect("Account/Login");
+                HttpContext.Current.Response.Redirect("Account/Login");
             }
 
 

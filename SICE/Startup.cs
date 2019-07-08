@@ -29,6 +29,7 @@ namespace SICE
                 //  Crear rol de administrador     
                 Roles.CreateRole("Admin");
                 
+                
                 //Crear usuario administrador                
                 var user = new ApplicationUser();
                 user.UserName = "Admin@SICE.com";
@@ -39,7 +40,7 @@ namespace SICE
                 //Asigna rol  
                 if (chkUser.Succeeded)
                 {
-                    Roles.AddUserToRole(user.Id, "Admin");
+                    Roles.AddUserToRole(user.UserName, "Admin");
                 }
             }
 
@@ -47,6 +48,7 @@ namespace SICE
             if (!Roles.RoleExists("Usuario"))
             {
                 Roles.CreateRole("Usuario");
+                
             }
         }
 

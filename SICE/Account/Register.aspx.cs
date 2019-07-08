@@ -36,7 +36,7 @@ namespace SICE.Account
             IdentityResult result = manager.Create(user, Password.Text);
             if (result.Succeeded)
             {
-                Roles.AddUserToRole(user.Id, "Usuario");
+                Roles.AddUserToRole(user.UserName, "Usuario");
                 //Eliminada linea que provocaba iniciar sesión en la cuenta recien creada.
                 IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
             }

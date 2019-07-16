@@ -19,7 +19,7 @@ namespace SICE
             var drawJson = "";
             try
             {
-                json = new WebClient().DownloadString("http://www.scristi.ml/api/sice/getHabitaciones.php");
+                json = new WebClient().DownloadString("http://localhost:8080/api/sice/getHabitaciones.php");
                 areas = new JavaScriptSerializer().Deserialize<List<areasJson>>(json);
             }
             catch (Exception error) { };
@@ -28,7 +28,7 @@ namespace SICE
             {
                 areas.ForEach(a => {
 
-                    drawJson = new WebClient().DownloadString("http://www.scristi.ml/api/sice/getDimensions.php?ID=" + a.area_ID.ToString());
+                    drawJson = new WebClient().DownloadString("http://localhost:8080/api/sice/getDimensions.php?ID=" + a.area_ID.ToString());
                     a.ad = new JavaScriptSerializer().Deserialize<areaDraw>(drawJson);
 
 

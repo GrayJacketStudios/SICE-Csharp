@@ -5,6 +5,6 @@
     title="Area map editor"
     width="1180"
     height="817"
-    src="http://www.scristi.ml/mapEditor.html">
+    src="http://localhost:8080">
 </iframe>
 </asp:Content>

@@ -29,7 +29,7 @@ namespace SICE.Events
             String areaNombres = "";
             foreach (string area in areas)
             {
-                string url = "http://scristi.ml/api/sice/getHabitacion.php?ID=" + area;
+                string url = "http://localhost:8080/api/sice/getHabitacion.php?ID=" + area;
                 var webClient = new WebClient();
                 var data = webClient.DownloadString(url);
                 dynamic jsonObj = JsonConvert.DeserializeObject(data);
@@ -42,7 +42,7 @@ namespace SICE.Events
 
         protected void getData4Table()
         {
-            string url = "http://scristi.ml/api/sice/getEventosActivos.php?evento=fecha";
+            string url = "http://localhost:8080/api/sice/getEventosActivos.php?evento=fecha";
             var webClient = new WebClient();
             data = webClient.DownloadString(url);
         }

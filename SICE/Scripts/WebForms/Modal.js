@@ -22,7 +22,7 @@ function getToday() {
 function getConsumo(id) {
 
     let fecha = getToday();
-    consumo = $.getJSON(`http://www.scristi.ml/api/sice/getConsumo.php?ID=${id}&f_inicio=${fecha.year}-${fecha.month}-${fecha.day}&f_termino=${fecha.month}-${fecha.day + 1}-${fecha.year}`, data => {
+    consumo = $.getJSON(`http://localhost:8080/api/sice/getConsumo.php?ID=${id}&f_inicio=${fecha.year}-${fecha.month}-${fecha.day}&f_termino=${fecha.month}-${fecha.day + 1}-${fecha.year}`, data => {
         if (data[0] != undefined)
             document.getElementById('txtConsumo').innerHTML = data[0].consumo;
         else
@@ -35,7 +35,7 @@ function getConsumo(id) {
 //Funcion ajax que envia un HTTPDREQUEST a la API ubicada en www.scristi.ml/api/sice/... para cambiar el flujo
 function cambiaFlujo(id, flujo) {
     area.flujo = flujo;
-    $.post(`http://www.scristi.ml/api/sice/changeFlujo.php?ID=${id}&flujo=${flujo}`);
+    $.post(`http://localhost:8080/api/sice/changeFlujo.php?ID=${id}&flujo=${flujo}`);
     renderModal();
     let areaDiv = document.getElementById(`areaMap_${id}`);
     if (flujo === 0) {

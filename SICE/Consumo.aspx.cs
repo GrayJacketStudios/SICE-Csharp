@@ -17,7 +17,7 @@ namespace SICE
         {
             try
             {
-                json = new WebClient().DownloadString("http://www.scristi.ml/api/sice/getHabitaciones.php");
+                json = new WebClient().DownloadString("http://localhost:8080/api/sice/getHabitaciones.php");
             }
             catch(Exception error)
             {

@@ -29,7 +29,7 @@
                    <div id="LArCon" class="card-body scroll" style="max-height: 550px!important;">
                     <table class="table table-hover" id="tablaConsumo">
                        <tr>
-                           <%--<th scope="col">--%>
+                           <th scope="col">
                                id
                            </th>
                            <th scope="col">
@@ -251,7 +251,7 @@
                 else
                     date2 += `${mesVisible}-${i+1.00}`;
 
-                let cons = $.getJSON(`http://www.scristi.ml/api/sice/getConsumo.php?ID=${currentSelected.area_ID}&f_inicio=${date1}&f_termino=${date2}`, data => {
+                let cons = $.getJSON(`http://localhost:8080/api/sice/getConsumo.php?ID=${currentSelected.area_ID}&f_inicio=${date1}&f_termino=${date2}`, data => {
                     addCon2Table(data);
             });
             }
@@ -284,7 +284,7 @@
 
                 }
                 
-                $.getJSON(`http://www.scristi.ml/api/sice/getMonthConsumo.php?year=${yearVisible}&mes=${date1}`, data => {
+                $.getJSON(`http://localhost:8080/api/sice/getMonthConsumo.php?year=${yearVisible}&mes=${date1}`, data => {
                     actualizaTabla1(JSON.parse(data));
                 });
             }
@@ -304,7 +304,7 @@
 
                 }
 
-                $.getJSON(`http://www.scristi.ml/api/sice/getMonthConsumoArea.php?ID=${currentSelected.area_ID}&year=${yearVisible}&mes=${date1}`, data => {
+                $.getJSON(`http://localhost:8080/api/sice/getMonthConsumoArea.php?ID=${currentSelected.area_ID}&year=${yearVisible}&mes=${date1}`, data => {
                     actualizaTabla2(JSON.parse(data));
                 });
             }

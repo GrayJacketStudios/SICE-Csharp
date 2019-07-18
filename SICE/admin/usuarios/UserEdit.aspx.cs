@@ -9,29 +9,47 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Security;
 
 namespace SICE.admin.usuarios
 {
     public partial class UserEdit : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
+        ApplicationUserManager manager;
+        RoleManager<IdentityRole> roleManager;
+        Models.ApplicationUser user;
+        
+
+
+        protected void Page_Init(object sender, EventArgs e)
         {
             ID.Value = Request["Id"];
-            var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var roleManager = Request.GetOwinContext().Get<RoleManager<IdentityRole>>();
-            var user = manager.FindById(Request["Id"]);
-            if(user == null)
+            manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            roleManager = Request.GetOwinContext().Get<RoleManager<IdentityRole>>();
+            user = manager.FindById(Request["Id"]);
+
+        }
+
+
+        protected void Page_PreRender()
+        {
+            
+            if (user == null)
             {
                 Response.Redirect("/admin/usuarios/UserList");
             }
 
-            email.Value = user.Email;
-            
+            if(email.Value == "")
+                email.Value = user.Email;
+
             rolSelect.SelectedValue = "0";
-            
-            username.Value = user.UserName;
-            habilitado.Checked = (getHabilitado(Request["Id"]) == "1") ? true:false ;
+            if (username.Value == "")
+                username.Value = user.UserName;
+
+            habilitadoText.InnerText = textHabilitado((getHabilitado(Request["Id"]) == "1") ? true : false);
         }
+
 
         protected String getHabilitado(String userId)
         {
@@ -47,8 +65,40 @@ namespace SICE.admin.usuarios
         {
             if (IsValid)
             {
-                
+                //Procedemos a guardar info que ha cambiado.
+                if(user.Email != email.Value)
+                {
+                    //Chequeamos que el mail sea correcto
+                    if (new EmailAddressAttribute().IsValid(email.Value))
+                    {
+                        user.Email = email.Value;
+                    }
+                }
 
+                //Procedemos a guardar info que ha cambiado.
+                if (user.UserName != username.Value)
+                {
+                    //Chequeamos que el mail sea correcto
+                    if (username.ToString().Length >= 3)
+                    {
+                        user.UserName = username.Value;
+                    }
+                }
+
+                if (rolSelect.SelectedValue != "0")
+                {
+                    try
+                    {
+                        Roles.RemoveUserFromRole(user.UserName, "Admin");
+
+                        Roles.RemoveUserFromRole(user.UserName, "Usuario");
+                    }
+                    catch (Exception err) { }
+                    Roles.AddUserToRole(user.UserName, rolSelect.SelectedValue);
+
+                }
+
+                manager.Update(user);
 
 
 
@@ -58,6 +108,27 @@ namespace SICE.admin.usuarios
 
         }
 
+        protected String textHabilitado(Boolean hab)
+        {
+            if(hab == true)
+            {
+                return "Habilitado";
+            }
+            return "Deshabilitado";
+        }
 
+        protected void habilitado_ServerChange(object sender, EventArgs e)
+        {
+            if (IsValid)
+            {
+                SqlConnection conn = new SqlConnection(connectionString: ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+                conn.Open();
+                var newValue = (habilitadoText.InnerText.Equals("Habilitado")) ? "0" : "1";
+
+                SqlCommand command = new SqlCommand("UPDATE [AspNetUsers] SET Habilitado = '" + newValue + "' where Email='" + user.Email + "'", conn);
+                habilitadoText.InnerText = textHabilitado(!habilitadoText.InnerText.Equals("Habilitado"));
+                habilitado.InnerText = (newValue.Equals("1")) ? "Habilitar" : "Deshabilitar";
+            }
+        }
     }
 }

@@ -27,19 +27,19 @@
 
             <div class="form-group">
                 <label for="habilitado">
-                    Usuario habilitado:
+                    Estado: <span id="habilitadoText" runat="server"></span>
                 </label>
-                <input type="checkbox" id="habilitado" name="habilitado" runat="server"/>
+                <a id="habilitado" name="habilitado" class="btn btn-danger" runat="server" onserverclick="habilitado_ServerChange">Deshabilitar</a>
             </div>
 
             <div class="form-group">
                 <label for="rol">
                     Cambiar rol:
                 </label>
-                <asp:DropDownList id="rolSelect" name="rol" runat="server" class="form-control" DataSourceID="SqlDataSource1" DataTextField="RoleName" DataValueField="RoleId" AppendDataBoundItems="true">
+                <asp:DropDownList id="rolSelect" name="rol" runat="server" class="form-control" DataSourceID="SqlDataSource1" DataTextField="RoleName" DataValueField="RoleName" AppendDataBoundItems="true">
                     <asp:ListItem Selected="true" Text="Por favor selecciona un rol..." Value="0" />
                 </asp:DropDownList>
-                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>" SelectCommand="SELECT [RoleName], [RoleId] FROM [vw_aspnet_Roles]"></asp:SqlDataSource>
+                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>" SelectCommand="SELECT [RoleName] FROM [vw_aspnet_Roles]"></asp:SqlDataSource>
             </div>
 
 
@@ -49,7 +49,7 @@
             </div>
 
             <div class="form-group">
-                <a id="guardarInfo" name="guardar" class=" form-control btn btn-info" runat="server">Guardar cambios</a>
+                <a id="guardarInfo" name="guardar" class=" form-control btn btn-info" runat="server" onserverclick="guardarDatos">Guardar cambios</a>
             </div>
 
             <div class="form-group">

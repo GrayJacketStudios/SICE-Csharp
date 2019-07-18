@@ -18,7 +18,7 @@ namespace SICE.admin
 
                 if (!Roles.IsUserInRole("Admin"))
                 {
-                    Response.Redirect("MapArea.aspx");
+                    Response.Redirect("/MapArea.aspx");
                 }
 
             }

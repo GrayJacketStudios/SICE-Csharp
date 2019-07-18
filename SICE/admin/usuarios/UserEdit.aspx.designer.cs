@@ -40,13 +40,22 @@ namespace SICE.admin.usuarios {
         protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl email;
         
         /// <summary>
+        /// habilitadoText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl habilitadoText;
+        
+        /// <summary>
         /// habilitado control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox habilitado;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor habilitado;
         
         /// <summary>
         /// rolSelect control.

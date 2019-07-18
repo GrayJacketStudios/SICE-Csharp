@@ -28,6 +28,12 @@ namespace SICE.admin.usuarios
             manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
             roleManager = Request.GetOwinContext().Get<RoleManager<IdentityRole>>();
             user = manager.FindById(Request["Id"]);
+            if(user != null)
+            {
+                habilitadoText.InnerText = textHabilitado((getHabilitado(Request["Id"]) == "1") ? true : false);
+                habilitado.InnerText = (getHabilitado(Request["Id"]) == "1") ? "Deshabilitar" : "Habilitar";
+            }
+                
 
         }
 
@@ -47,7 +53,6 @@ namespace SICE.admin.usuarios
             if (username.Value == "")
                 username.Value = user.UserName;
 
-            habilitadoText.InnerText = textHabilitado((getHabilitado(Request["Id"]) == "1") ? true : false);
         }
 
 
@@ -126,8 +131,9 @@ namespace SICE.admin.usuarios
                 var newValue = (habilitadoText.InnerText.Equals("Habilitado")) ? "0" : "1";
 
                 SqlCommand command = new SqlCommand("UPDATE [AspNetUsers] SET Habilitado = '" + newValue + "' where Email='" + user.Email + "'", conn);
+                command.ExecuteNonQuery();
                 habilitadoText.InnerText = textHabilitado(!habilitadoText.InnerText.Equals("Habilitado"));
-                habilitado.InnerText = (newValue.Equals("1")) ? "Habilitar" : "Deshabilitar";
+                habilitado.InnerText = (newValue.Equals("1")) ? "Deshabilitar" : "Habilitar";
             }
         }
     }

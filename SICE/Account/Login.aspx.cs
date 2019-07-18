@@ -38,7 +38,9 @@ namespace SICE.Account
                     if (res.Equals("0"))
                     {
                         Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-                        result = SignInStatus.Failure;
+                        FailureText.Text = "Usuario bloqueado, contacte con un administrador.";
+                        ErrorMessage.Visible = true;
+                        return;
                     }
                         
                         
@@ -61,7 +63,7 @@ namespace SICE.Account
                         break;
                     case SignInStatus.Failure:
                     default:
-                        FailureText.Text = "Intento de login invalido o usuario bloqueado";
+                        FailureText.Text = "Usuario o contraseña incorrecta";
                         ErrorMessage.Visible = true;
                         break;
                 }

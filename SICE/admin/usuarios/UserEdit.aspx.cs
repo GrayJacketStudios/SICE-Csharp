@@ -33,8 +33,15 @@ namespace SICE.admin.usuarios
                 habilitadoText.InnerText = textHabilitado((getHabilitado(Request["Id"]) == "1") ? true : false);
                 habilitado.InnerText = (getHabilitado(Request["Id"]) == "1") ? "Deshabilitar" : "Habilitar";
             }
-                
+            
 
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+            FailureText.Text = "";
+            ErrorMessage.Visible = false;
         }
 
 
@@ -52,6 +59,7 @@ namespace SICE.admin.usuarios
             rolSelect.SelectedValue = "0";
             if (username.Value == "")
                 username.Value = user.UserName;
+
 
         }
 
@@ -92,6 +100,13 @@ namespace SICE.admin.usuarios
 
                 if (rolSelect.SelectedValue != "0")
                 {
+                    if (User.Identity.GetUserId().Equals(user.Id))
+                    {
+                        FailureText.Text = "No se puede cambiar el rol a sí mismo";
+                        ErrorMessage.Visible = true;
+                        rolSelect.SelectedValue = "0";
+                        return;
+                    }
                     try
                     {
                         Roles.RemoveUserFromRole(user.UserName, "Admin");
@@ -126,6 +141,12 @@ namespace SICE.admin.usuarios
         {
             if (IsValid)
             {
+                if (User.Identity.GetUserId().Equals(user.Id))
+                {
+                    FailureText.Text = "No te puedes bloquear a tí mismo";
+                    ErrorMessage.Visible = true;
+                    return;
+                }
                 SqlConnection conn = new SqlConnection(connectionString: ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                 conn.Open();
                 var newValue = (habilitadoText.InnerText.Equals("Habilitado")) ? "0" : "1";
